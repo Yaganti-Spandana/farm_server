@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-s#3q^ai)g@cjayk951uj+3uw=ql1(sn4@t-!q%n!du#7xw)0uv
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ["dairy farm.onrender.com"]
+ALLOWED_HOSTS = ["farm.onrender.com"]
 
 
 # Application definition
