@@ -99,3 +99,42 @@ def profit_loss(request):
         "total_expenses": total_expenses,
         "profit": profit
     })
+
+from django.db.models import Sum
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import MilkRecord, Sale, Expense, Animal
+
+@api_view(['GET'])
+def monthly_report(request):
+    start = request.GET.get("from")
+    end = request.GET.get("to")
+    animal_id = request.GET.get("animal")
+
+    milk_qs = MilkRecord.objects.all()
+    sales_qs = Sale.objects.all()
+    expense_qs = Expense.objects.all()
+
+    if start and end:
+        milk_qs = milk_qs.filter(date__range=[start, end])
+        sales_qs = sales_qs.filter(date__range=[start, end])
+        expense_qs = expense_qs.filter(date__range=[start, end])
+
+    if animal_id:
+        milk_qs = milk_qs.filter(animal_id=animal_id)
+
+    total_milk = milk_qs.aggregate(Sum("total_milk"))["total_milk__sum"] or 0
+    milk_sold = milk_qs.aggregate(Sum("milk_sold"))["milk_sold__sum"] or 0
+
+    total_income = sales_qs.aggregate(Sum("total_income"))["total_income__sum"] or 0
+    total_expenses = expense_qs.aggregate(Sum("amount"))["amount__sum"] or 0
+
+    profit = total_income - total_expenses
+
+    return Response({
+        "total_milk": total_milk,
+        "milk_sold": milk_sold,
+        "total_income": total_income,
+        "total_expenses": total_expenses,
+        "profit": profit
+    })
