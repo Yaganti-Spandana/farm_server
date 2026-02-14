@@ -2,7 +2,7 @@ from django.urls import path,include
 from .views import register
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.routers import DefaultRouter
-from .views import AnimalViewSet,MilkRecordViewSet,SaleViewSet,ExpenseViewSet,FeedStockViewSet,FeedUsageViewSet,feed_remaining,profit_loss
+from .views import AnimalViewSet,MilkRecordViewSet,SaleViewSet,ExpenseViewSet,FeedStockViewSet,FeedUsageViewSet,feed_remaining,profit_loss,monthly_report
 
 router = DefaultRouter()
 router.register('animals', AnimalViewSet)
