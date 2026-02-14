@@ -16,8 +16,22 @@ from .models import Animal
 from .serializers import AnimalSerializer
 
 class AnimalViewSet(viewsets.ModelViewSet):
-    queryset = Animal.objects.all()
     serializer_class = AnimalSerializer
+
+    def get_queryset(self):
+        qs = Animal.objects.all()
+        status = self.request.GET.get("status")
+        from_date = self.request.GET.get("from")
+        to_date = self.request.GET.get("to")
+
+        if status:
+            qs = qs.filter(status=status)
+
+        if from_date and to_date:
+            qs = qs.filter(purchase_date__range=[from_date, to_date])
+
+        return qs
+
 
 from .models import MilkRecord
 from .serializers import MilkRecordSerializer
