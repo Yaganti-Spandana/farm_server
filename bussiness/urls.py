@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from .views import AnimalViewSet,MilkRecordViewSet,SaleViewSet,ExpenseViewSet,FeedStockViewSet,FeedUsageViewSet,feed_remaining,profit_loss,monthly_report
 
 router = DefaultRouter()
-router.register('animals', AnimalViewSet)
+router.register('animals', AnimalViewSet, basename='animal')
 router.register('milk', MilkRecordViewSet)
 router.register('sales', SaleViewSet)
 router.register('expenses', ExpenseViewSet)
