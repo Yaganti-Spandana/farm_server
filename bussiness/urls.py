@@ -19,5 +19,6 @@ urlpatterns = [
     path('refresh/', TokenRefreshView.as_view()),
     path('feed-remaining/', feed_remaining),
     path('profit-loss/', profit_loss),
+    path('monthly-report/', monthly_report),
     path('', include(router.urls)),
 ]
