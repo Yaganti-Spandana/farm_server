@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'server.wsgi.bussiness'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'farm_database',
+        'NAME': 'farm_database_cetc',
         'USER': 'farm_database_cetc_user',
         'PASSWORD': 'dfp1kNeWvNOlJaH1Cju2nd55RTb2TTcq',
         'HOST': 'dpg-d68ni1ngi27c73c4s0s0-a.oregon-postgres.render.com',
