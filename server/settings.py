@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'farm_database',
         'USER': 'farm_database_cetc_user',
         'PASSWORD': 'dfp1kNeWvNOlJaH1Cju2nd55RTb2TTcq',
-        'HOST': 'postgresql://farm_database_cetc_user:dfp1kNeWvNOlJaH1Cju2nd55RTb2TTcq@dpg-d68ni1ngi27c73c4s0s0-a.oregon-postgres.render.com/farm_database_cetc',
+        'HOST': 'dpg-d68ni1ngi27c73c4s0s0-a.oregon-postgres.render.com',
         'PORT': '5432',
     }
 }
