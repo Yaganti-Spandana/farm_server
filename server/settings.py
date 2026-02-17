@@ -9,9 +9,12 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,11 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s#3q^ai)g@cjayk951uj+3uw=ql1(sn4@t-!q%n!du#7xw)0uv'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "farm-pgi5.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
 
 
 # Application definition
@@ -84,21 +91,21 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'server.wsgi.bussiness'
+WSGI_APPLICATION = 'server.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'farm_database_cetc',
-        'USER': 'farm_database_cetc_user',
-        'PASSWORD': 'dfp1kNeWvNOlJaH1Cju2nd55RTb2TTcq',
-        'HOST': 'dpg-d68ni1ngi27c73c4s0s0-a.oregon-postgres.render.com',
-        'PORT': '5432',
-    }
+  "default": {
+    "ENGINE": "django.db.backends.postgresql",
+    "NAME": os.environ["DB_NAME"],
+    "USER": os.environ["DB_USER"],
+    "PASSWORD": os.environ["DB_PASSWORD"],
+    "HOST": os.environ["DB_HOST"],
+    "PORT": os.environ["DB_PORT"],
+  }
 }
 
 
