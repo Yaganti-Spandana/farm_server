@@ -178,6 +178,8 @@ def monthly_report(request):
     total_animals = animal_qs.count()
     total_milk = milk_qs.aggregate(Sum("total_milk"))["total_milk__sum"] or 0
     milk_sold = milk_qs.aggregate(Sum("milk_sold"))["milk_sold__sum"] or 0
+    milk_home = milk_qs.aggregate(Sum("milk_home"))["milk_home__sum"] or 0
+milk_wasted = milk_qs.aggregate(Sum("milk_wasted"))["milk_wasted__sum"] or 0
     total_income = sales_qs.aggregate(Sum("total_income"))["total_income__sum"] or 0
     total_expenses = expense_qs.aggregate(Sum("amount"))["amount__sum"] or 0
     profit = total_income - total_expenses
@@ -189,11 +191,13 @@ def monthly_report(request):
     )
 
     return Response({
-        "total_animals": total_animals,
-        "total_milk": total_milk,
-        "milk_sold": milk_sold,
-        "total_income": total_income,
-        "total_expenses": total_expenses,
-        "profit": profit,
-        "expenses_by_category": expenses_by_category
-    })
+    "total_animals": total_animals,
+    "total_milk": total_milk,
+    "milk_sold": milk_sold,
+    "milk_home": milk_home,
+    "milk_wasted": milk_wasted,
+    "total_income": total_income,
+    "total_expenses": total_expenses,
+    "profit": profit,
+    "expenses_by_category": expenses_by_category
+})
