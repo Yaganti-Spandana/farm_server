@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+
+# ---------- Register ----------
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -11,9 +15,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+# ---------- Login Serializer ----------
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -21,7 +26,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
     def validate(self, attrs):
-        data = super().validate(attrs)
+        try:
+            data = super().validate(attrs)
+        except Exception:
+            # 🔴 clean error message
+            raise AuthenticationFailed("Invalid username or password")
+
         data['username'] = self.user.username
         return data
 
