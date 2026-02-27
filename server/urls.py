@@ -24,6 +24,7 @@ from django.http import HttpResponse
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('bussiness.urls')),  
+    path('api/password_reset/', include('django_rest_passwordreset.urls')),
     path("", lambda request: HttpResponse("Farm API is running")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
