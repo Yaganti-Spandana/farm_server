@@ -161,30 +161,35 @@ def monthly_report(request):
     milk_qs = MilkRecord.objects.all()
     sales_qs = Sale.objects.all()
     expense_qs = Expense.objects.all()
+    animal_qs = Animal.objects.all()
 
+    # ✅ date filter
     if start and end:
         milk_qs = milk_qs.filter(date__range=[start, end])
         sales_qs = sales_qs.filter(date__range=[start, end])
         expense_qs = expense_qs.filter(date__range=[start, end])
+        animal_qs = animal_qs.filter(purchase_date__range=[start, end])
 
+    # ✅ animal filter
     if animal_id:
         milk_qs = milk_qs.filter(animal_id=animal_id)
 
+    # ===== aggregates =====
+    total_animals = animal_qs.count()
     total_milk = milk_qs.aggregate(Sum("total_milk"))["total_milk__sum"] or 0
     milk_sold = milk_qs.aggregate(Sum("milk_sold"))["milk_sold__sum"] or 0
     total_income = sales_qs.aggregate(Sum("total_income"))["total_income__sum"] or 0
     total_expenses = expense_qs.aggregate(Sum("amount"))["amount__sum"] or 0
+    profit = total_income - total_expenses
 
-    # 🔥 THIS IS THE IMPORTANT PART
     expenses_by_category = (
         expense_qs
         .values("category")
         .annotate(total=Sum("amount"))
     )
 
-    profit = total_income - total_expenses
-
     return Response({
+        "total_animals": total_animals,
         "total_milk": total_milk,
         "milk_sold": milk_sold,
         "total_income": total_income,
