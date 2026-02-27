@@ -179,7 +179,7 @@ def monthly_report(request):
     total_milk = milk_qs.aggregate(Sum("total_milk"))["total_milk__sum"] or 0
     milk_sold = milk_qs.aggregate(Sum("milk_sold"))["milk_sold__sum"] or 0
     milk_home = milk_qs.aggregate(Sum("milk_home"))["milk_home__sum"] or 0
-milk_wasted = milk_qs.aggregate(Sum("milk_wasted"))["milk_wasted__sum"] or 0
+    milk_wasted = milk_qs.aggregate(Sum("milk_wasted"))["milk_wasted__sum"] or 0
     total_income = sales_qs.aggregate(Sum("total_income"))["total_income__sum"] or 0
     total_expenses = expense_qs.aggregate(Sum("amount"))["amount__sum"] or 0
     profit = total_income - total_expenses
