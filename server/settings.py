@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'bussiness',
+    'bussiness.apps.ServerConfig',
     'django_rest_passwordreset',
 ]
 

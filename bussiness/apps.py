@@ -1,7 +1,8 @@
 from django.apps import AppConfig
 
-
-class BussinessConfig(AppConfig):
+class ServerConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
     name = 'bussiness'
+
     def ready(self):
         import bussiness.signals
