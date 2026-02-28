@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
+import socket
+
+socket.setdefaulttimeout(30)
+EMAIL_USE_LOCALTIME = True
 from dotenv import load_dotenv
 import os
 
@@ -49,12 +53,12 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
 ]
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "bussiness.email_backend.IPv4EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_TIMEOUT = 30
+EMAIL_TIMEOUT = 60
 
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
