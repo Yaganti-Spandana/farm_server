@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import socket
+socket.setdefaulttimeout(30)
 EMAIL_USE_LOCALTIME = True
 from dotenv import load_dotenv
 import os
