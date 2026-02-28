@@ -5,7 +5,7 @@ from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
-
+logger.error(f"EMAIL USER: {settings.EMAIL_HOST_USER}")
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     try:
