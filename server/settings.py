@@ -91,12 +91,17 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+# Allow frontend Netlify domain
 CORS_ALLOWED_ORIGINS = [
     "https://farm-dairy.netlify.app",
 ]
 
+# Optional: if sending cookies/auth
+CORS_ALLOW_CREDENTIALS = True
+
+# Allow all headers and methods
 CORS_ALLOW_HEADERS = ["*"]
-CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+CORS_ALLOW_METHODS = ["*"]
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
