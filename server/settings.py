@@ -85,6 +85,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://farm-dairy.netlify.app",
 ]
 
+CORS_ALLOW_HEADERS = ["*"]
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 ROOT_URLCONF = 'server.urls'
 
 TEMPLATES = [
