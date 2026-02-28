@@ -65,7 +65,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")
 
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
-    "yagantispandana@gmail.com"
+    "noreply@yourdomain.com"  # Must be verified in SendGrid
 )
 
 REST_FRAMEWORK = {
