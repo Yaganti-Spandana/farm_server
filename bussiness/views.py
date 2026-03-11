@@ -139,6 +139,20 @@ from .serializers import FeedStockSerializer, FeedUsageSerializer
 class FeedStockViewSet(viewsets.ModelViewSet):
     queryset = FeedStock.objects.all().order_by('-date')
     serializer_class = FeedStockSerializer
+    def get_queryset(self):
+
+        queryset = FeedStock.objects.all()
+
+        from_date = self.request.GET.get("from")
+        to_date = self.request.GET.get("to")
+
+        if from_date:
+            queryset = queryset.filter(date__gte=from_date)
+
+        if to_date:
+            queryset = queryset.filter(date__lte=to_date)
+
+        return queryset
 
 class FeedUsageViewSet(viewsets.ModelViewSet):
     queryset = FeedUsage.objects.all().order_by('-date')
