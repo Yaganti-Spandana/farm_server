@@ -73,6 +73,20 @@ from .serializers import MilkRecordSerializer
 class MilkRecordViewSet(viewsets.ModelViewSet):
     queryset = MilkRecord.objects.all().order_by('-date')
     serializer_class = MilkRecordSerializer
+    def get_queryset(self):
+
+        queryset = MilkRecord.objects.all()
+
+        from_date = self.request.GET.get("from")
+        to_date = self.request.GET.get("to")
+
+        if from_date:
+            queryset = queryset.filter(date__gte=from_date)
+
+        if to_date:
+            queryset = queryset.filter(date__lte=to_date)
+
+        return queryset
 
 from rest_framework import viewsets
 from .models import Sale
@@ -81,6 +95,20 @@ from .serializers import SaleSerializer
 class SaleViewSet(viewsets.ModelViewSet):
     queryset = Sale.objects.all().order_by('-date')
     serializer_class = SaleSerializer
+    def get_queryset(self):
+
+        queryset = Sale.objects.all()
+
+        from_date = self.request.GET.get("from")
+        to_date = self.request.GET.get("to")
+
+        if from_date:
+            queryset = queryset.filter(date__gte=from_date)
+
+        if to_date:
+            queryset = queryset.filter(date__lte=to_date)
+
+        return queryset
 
 from rest_framework import viewsets
 from .models import Expense
@@ -89,6 +117,20 @@ from .serializers import ExpenseSerializer
 class ExpenseViewSet(viewsets.ModelViewSet):
     queryset = Expense.objects.all().order_by('-date')
     serializer_class = ExpenseSerializer
+    def get_queryset(self):
+
+        queryset = Expense.objects.all()
+
+        from_date = self.request.GET.get("from")
+        to_date = self.request.GET.get("to")
+
+        if from_date:
+            queryset = queryset.filter(date__gte=from_date)
+
+        if to_date:
+            queryset = queryset.filter(date__lte=to_date)
+
+        return queryset
 
 from rest_framework import viewsets
 from .models import FeedStock, FeedUsage
