@@ -183,16 +183,30 @@ def feed_remaining(request):
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.db.models import Sum
-from .models import Sale
-from .models import Expense
+from .models import Sale, Expense
 
 @api_view(['GET'])
 def profit_loss(request):
-    total_income = Sale.objects.aggregate(
+
+    from_date = request.GET.get("from")
+    to_date = request.GET.get("to")
+
+    sales = Sale.objects.all()
+    expenses = Expense.objects.all()
+
+    if from_date:
+        sales = sales.filter(date__gte=from_date)
+        expenses = expenses.filter(date__gte=from_date)
+
+    if to_date:
+        sales = sales.filter(date__lte=to_date)
+        expenses = expenses.filter(date__lte=to_date)
+
+    total_income = sales.aggregate(
         Sum('total_income')
     )['total_income__sum'] or 0
 
-    total_expenses = Expense.objects.aggregate(
+    total_expenses = expenses.aggregate(
         Sum('amount')
     )['amount__sum'] or 0
 
