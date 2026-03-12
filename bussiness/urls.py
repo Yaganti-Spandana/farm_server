@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     AnimalViewSet, MilkRecordViewSet, SaleViewSet,
     ExpenseViewSet, FeedStockViewSet, FeedUsageViewSet,
-    feed_remaining, profit_loss, monthly_report
+    feed_remaining, profit_loss, monthly_report,yearly_profit
 )
 
 router = DefaultRouter()
@@ -23,6 +23,7 @@ urlpatterns = [
     path('feed-remaining/', feed_remaining),
     path('profit-loss/', profit_loss),
     path('monthly-report/', monthly_report),
+    path("yearly-profit/", yearly_profit),
     path('', include(router.urls)),
 ]
 

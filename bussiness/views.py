@@ -271,3 +271,34 @@ def monthly_report(request):
     "profit": profit,
     "expenses_by_category": expenses_by_category
 })
+
+from datetime import datetime
+from django.db.models import Sum
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Sale, Expense
+
+@api_view(['GET'])
+def yearly_profit(request):
+
+    year = datetime.now().year
+
+    sales = Sale.objects.filter(date__year=year)
+    expenses = Expense.objects.filter(date__year=year)
+
+    total_sales = sales.aggregate(
+        Sum("total_income")
+    )["total_income__sum"] or 0
+
+    total_expenses = expenses.aggregate(
+        Sum("amount")
+    )["amount__sum"] or 0
+
+    profit = total_sales - total_expenses
+
+    return Response({
+        "year": year,
+        "total_sales": total_sales,
+        "total_expenses": total_expenses,
+        "profit": profit
+    })
